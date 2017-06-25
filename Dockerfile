@@ -8,7 +8,6 @@ RUN apt-get update && apt-get -y upgrade && DEBIAN_FRONTEND=noninteractive apt-g
 
 
 # Clone the repository that contain Steam Friend website
-
 RUN git clone https://github.com/Kirom12/steam-gf /tmp
 
 
@@ -30,14 +29,23 @@ ENV APACHE_PID_FILE /var/run/apache2.pid
 # Expose apache.
 EXPOSE 80
 
-# # Copy this repo into place.
-# ADD www /var/www/site
 # Copy the repo into place
 RUN mkdir /var/www/site
 RUN cp -R /tmp/* /var/www/site
 
+# Create the steam_key file and copy the key in it
+# RUN touch /var/www/site/steam_key.php
+
+# RUN echo "<?php define('STEAM_KEY', $steam_key);" > /var/www/site/steam_key.php
+
 # Update the default apache site with the config we created.
 ADD apache-config.conf /etc/apache2/sites-enabled/000-default.conf
+
+## Cleaning
+RUN rm -rf /tmp
+
+## Launch the entrypoint to get the steam_key in the approriate file
+
 
 # By default start up apache in the foreground, override with /bin/bash for interative.
 CMD /usr/sbin/apache2ctl -D FOREGROUND
