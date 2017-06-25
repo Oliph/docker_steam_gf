@@ -1,5 +1,5 @@
 # docker_steam_gf
-Dockerising Game's Friend's app
+Dockerising Game's Friend's app from [https://github.com/Kirom12/steam-gf](https://github.com/Kirom12/steam-gf)
 
 
 
