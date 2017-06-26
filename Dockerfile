@@ -39,13 +39,6 @@ RUN cp -R /tmp/* /var/www/steam_ffs
 RUN chown www-data:www-data /var/www/steam_ffs -R
 
 
-# Create the steam_key file and copy the key in it
-RUN mkdir /app
-RUN touch /app/steam_key.php
-
-RUN echo "<?php define('STEAM_KEY', 'KEY_TO_REPLACE');" > /app/steam_key.php
-
-
 # Update the default apache site with the config we created.
 ADD apache-config.conf /etc/apache2/sites-enabled/000-default.conf
 
